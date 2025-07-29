@@ -51,17 +51,19 @@ def main():
                 st.error('File does not have any content...')
                 st.stop()
 
-            prompt = f'''Please analyze this resume and provide constructive feedback.
-            Focus on the following aspects:
-            1. Content calrity and impact
-            2. Skills Presentation
-            3. Experience Descriptions
-            4. Specific improvements for {job_role if job_role else 'general job applications'}
+            prompt = f'''
+            You are an expert resume reviewer with deep experience in HR and recruitment.
 
-            Resume Content:
+            You will receive the resume content of a candidate and the job role they are applying for. Your task has **two steps**:
+
+            **Step 1: Score the Resume**
+            Give a rating from 1 to 10 indicating how well the resume aligns with the job role provided. Base your score on relevance of skills, experience, clarity, and completeness. Explain briefly the rationale behind the score.
+
+            **Step 2: Recommendations**
+            Based on the score, provide tailored and practical suggestions on how the candidate can improve their resume to better align with the job role "{job_role if job_role else 'general position'}". Be specific — include what to add, remove or modify, and why.
+
+            Here is the resume content:
             {file_content}
-
-            Please provide your analysis in a clear, structured format with specific recommendations
             '''
 
             client = OpenAI(api_key=OPENAI_API_KEY)
